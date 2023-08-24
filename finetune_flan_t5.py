@@ -53,7 +53,7 @@ def compute_metrics(eval_preds):
     result = metric.compute(predictions=decoded_preds, references=decoded_labels, use_stemmer=True)
     return result
 
-
+# Set up training arguments
 training_args = Seq2SeqTrainingArguments(
     output_dir="./results",
     evaluation_strategy="epoch",
@@ -67,6 +67,7 @@ training_args = Seq2SeqTrainingArguments(
     push_to_hub=False
 )
 
+# Set up trainer
 trainer = Seq2SeqTrainer(
     model=model,
     args=training_args,
@@ -77,4 +78,5 @@ trainer = Seq2SeqTrainer(
     compute_metrics=compute_metrics
 )
 
+# Train the model
 trainer.train()
